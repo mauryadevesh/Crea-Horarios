@@ -44,8 +44,10 @@ Active Sections & Features on the Website:
    - Custom note input per lecture for assignments, proxies, or room changes.
    - Feedback & Suggestions form (rating, category, message, email).
 
-3. LOCAL JSON PERSISTENCE:
-   - Automatic offline-first local storage persistence for all subjects, slots, logs, and notes.
+3. LOCAL JSON ACCOUNT & PERSISTENCE:
+   - Sign in and Register options located in the top-right corner.
+   - Saves personalized timetable and log data into an offline-first local JSON database.
+   - Supports multiple user accounts without third-party cloud services or Supabase.
 
 
 4. EMBEDDED AI ASSISTANT:
