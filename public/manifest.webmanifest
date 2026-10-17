@@ -1,0 +1,17 @@
+{
+  "name": "College Attendance Tracker",
+  "short_name": "Attendance",
+  "description": "Track attendance, stay above target, and plan safely.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0E12",
+  "theme_color": "#0B0E12",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
