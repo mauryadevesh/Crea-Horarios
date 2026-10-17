@@ -12,45 +12,64 @@ const FAQS: FaqItem[] = [
     id: "purpose",
     question: "What is the Weekly Timetable Maker?",
     answer:
-      "Weekly Timetable Maker is an academic schedule planning application designed to build college schedules without conflicts. It prevents the same instructor from being scheduled in two rooms at once, eliminates room double-booking, and avoids overlapping class hours.",
+      "Weekly Timetable Maker is an academic planner designed to build weekly class schedules and log daily attendance without conflicts. It prevents the same instructor from being scheduled in two rooms at once, eliminates room double-booking, and avoids overlapping class hours.",
   },
   {
     id: "clash-engine",
-    question: "How does the conflict detection system work?",
+    question: "What kinds of scheduling clashes are detected and prevented?",
     answer:
-      "Whenever a lecture is added or modified, our validation engine cross-references all scheduled slots against three rules: (1) Room Availability (no double-booking of any room or lab), (2) Faculty Availability (instructors cannot teach two classes simultaneously), and (3) Time Overlap (no overlapping period intervals). Any collision is highlighted immediately with detailed notice banners.",
-  },
-  {
-    id: "custom-times",
-    question: "Can I customize class timings and periods?",
-    answer:
-      "Yes. You can select standard period presets (such as 09:00 - 10:00 or 10:00 - 11:00) or input custom start and end times down to the minute using the time pickers.",
+      "Our clash engine checks three constraints in real time: (1) Faculty Availability (the same instructor cannot be scheduled in two classes simultaneously), (2) Room Availability (a classroom or laboratory cannot be double-booked during overlapping hours), and (3) Time Collisions (multiple lectures cannot overlap on the same day). Conflicting slots are flagged with warning banners.",
   },
   {
     id: "assign-teachers",
-    question: "How do I assign faculty to subjects?",
+    question: "How do I add a subject and assign a teacher?",
     answer:
-      "Under 'Subjects & Faculty' in the Timetable tab, type the subject name along with the teacher's name (e.g. Dr. Alan Turing) and click 'Add Subject'. The assigned teacher automatically links to all scheduled slots for that subject.",
+      "In the Timetable tab under 'Subjects & Faculty', enter the subject name along with the teacher's name (e.g. Dr. Alan Turing) and click 'Add Subject'. The assigned faculty member is linked automatically to every class slot scheduled for that subject.",
+  },
+  {
+    id: "schedule-slot",
+    question: "How do I schedule a class session?",
+    answer:
+      "Click '+ Schedule New Class' (or '+ Add Class' on any day card). Select the day and subject, choose a room from quick presets (e.g. Room 101, Lab A) or type a custom room, and pick a standard period preset or custom start and end times. The system validates the slot in real time before scheduling.",
+  },
+  {
+    id: "matrix-filtering",
+    question: "How do I view my timetable by specific days?",
+    answer:
+      "In the 'Schedule Master Matrix' section at the bottom of the Timetable tab, use the 'Filter Day' buttons to view 'All Week' or filter by any single day (Monday through Sunday). On phones it renders as compact cards, while on tablets and laptops it presents a full matrix table.",
+  },
+  {
+    id: "daily-log",
+    question: "How does the Daily Log work?",
+    answer:
+      "Switch to the 'Log' tab and pick any date on the calendar. For every class scheduled on that day, you can record attendance with a single tap ('Attended', 'Missed', or 'Cancelled') and add custom notes for assignment deadlines, proxy lecturers, or room announcements.",
   },
   {
     id: "daily-override",
-    question: "What if a lecture is swapped or a proxy is assigned for a day?",
+    question: "What if a lecture is swapped or cancelled for just one day?",
     answer:
-      "In the Log tab, you can toggle subjects under 'Today’s Schedule' to apply a single-day override without altering your weekly master timetable. You can reset back to the default schedule with one click.",
+      "In the Log tab under 'Today’s Schedule', tap any subject pill to toggle it on or off for that date. This lets you handle single-day room changes, substitute teachers, or cancelled lectures without changing your recurring weekly master timetable. Click 'Reset to default schedule' anytime to revert back.",
+  },
+  {
+    id: "edit-delete",
+    question: "How do I edit or delete a scheduled class?",
+    answer:
+      "Every scheduled lecture in both the day cards and the Schedule Master Matrix includes dedicated 'Edit' and 'Delete' buttons. Clicking 'Edit' opens the session modal with existing details pre-filled for immediate adjustment.",
   },
   {
     id: "persistence",
     question: "Is my timetable data saved automatically?",
     answer:
-      "Yes. All subjects, timetable slots, daily logs, and notes are saved instantly to your browser's local storage. If Supabase is configured with your credentials, your schedule synchronizes securely to cloud storage.",
+      "Yes. All subjects, timetable slots, daily logs, and notes are saved instantly to your browser's local storage. You can also sign in with email and password via the account panel in the header to synchronize your schedule to the cloud.",
   },
   {
-    id: "devices",
-    question: "Does the website work on mobile devices and tablets?",
+    id: "reset",
+    question: "How do I reset my schedule if I want to start over?",
     answer:
-      "Yes. On phones, the schedule automatically adapts into responsive lecture cards and bottom-sheet editors. On tablets and desktops, it displays the full master matrix with day filtering.",
+      "In the 'Subjects & Faculty' section, click 'Reset to defaults' to restore sample subjects and slots, or click 'Clear logs' to wipe logged attendance and notes while keeping your timetable structure intact.",
   },
 ];
+
 
 export default function FaqSection() {
   const [openId, setOpenId] = useState<string | null>(null);
