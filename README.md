@@ -12,7 +12,6 @@ A minimalist, conflict-free responsive timetable planner with automated clash de
 ## Tech Stack
 - React 18 + TypeScript (Vite)
 - Tailwind CSS
-- Framer Motion
 - Vitest
 
 ## Getting Started
