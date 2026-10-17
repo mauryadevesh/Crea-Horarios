@@ -1,0 +1,69 @@
+WEEKLY TIMETABLE MAKER - PROJECT DOCUMENTATION & FAQs
+
+================================================================================
+1. PROJECT OVERVIEW
+================================================================================
+Project Name: Weekly Timetable Maker
+Category: Academic Productivity & Conflict-Free Scheduling
+Repository Path: C:\Users\maury\Documents\AttendenceTracker\Track
+Target Audience: College students, department coordinators, lecturers, academic administrators.
+
+Weekly Timetable Maker is a web-based, client-side first application designed to eliminate scheduling clashes and maintain daily class logs. It deterministically detects and prevents teacher double-booking, room overlap, and student time conflicts.
+
+Key Highlights:
+- Conflict Engine: Pure deterministic checking preventing overlapping lecture intervals for identical teachers, rooms, or times.
+- Dual-Mode Timetable Matrix: Phone card view (<768px) and desktop data matrix (>=768px) with day filtering.
+- Daily Log: Per-lecture attendance logging (Attended, Missed, Cancelled) with custom daily notes and schedule overrides.
+- Minimalist Dark Forest Aesthetic: Palette sampled directly from reference (#16362B, #1B3F33, #20493B, #F5F2DF, #E7E7DD, #A4B5AA).
+- Custom Typography: 'The Blood of Dawnwalker' (Power Grotesk) and 'Rogenz' branding.
+- Zero External Emoji: Clean, typography-driven professional interface.
+
+
+================================================================================
+2. TECHNICAL ARCHITECTURE & STACK
+================================================================================
+- Frontend Framework: React 18 + TypeScript + Vite
+- Styling: Tailwind CSS 3.4
+- Animation Engine: Framer Motion
+- Storage: Browser LocalStorage with optional Supabase cloud persistence (Row-Level Security enabled)
+- Test Suite: Vitest (conflict resolution and attendance computation suites)
+- Responsive Support: Mobile (320px+), Tablet (768px+), Laptop/Desktop (1024px+)
+
+
+================================================================================
+3. FREQUENTLY ASKED QUESTIONS (FAQs) FOR WEBSITE FAQ SECTION
+================================================================================
+
+Q1: What is the Weekly Timetable Maker?
+A1: Weekly Timetable Maker is an academic schedule planning application designed to build college schedules without conflicts. It prevents the same instructor from being scheduled in two rooms at once, eliminates room double-booking, and avoids overlapping class hours.
+
+Q2: How does the conflict detection system work?
+A2: When you add or edit a class session, the internal clash engine checks three rules:
+1. Room Availability: Ensures no other class is booked in the same room at the same time.
+2. Faculty Availability: Ensures the assigned instructor is not teaching another subject during the selected period.
+3. Class Overlap: Ensures two lectures are not scheduled simultaneously on the same day.
+If any overlap is detected, the system displays the clash reason and blocks invalid schedules until resolved.
+
+Q3: Can I customize class timings and duration?
+A3: Yes. You can use standard period presets (such as 09:00 - 10:00 or 10:00 - 11:00) or specify custom start and end times down to the minute using the time pickers.
+
+Q4: How do I assign teachers to subjects?
+A4: Under the 'Subjects & Faculty' section in the Timetable tab, enter the subject name alongside the teacher's name (e.g. Dr. Alan Turing) and click 'Add Subject'. The assigned faculty will automatically sync to all scheduled slots for that subject.
+
+Q5: Is my schedule data saved automatically?
+A5: Yes. All subjects, timetable slots, daily logs, and notes are saved instantly to your browser's local storage. If Supabase is configured with your account credentials, your schedule also synchronizes securely to the cloud.
+
+Q6: How does the Daily Log differ from the Timetable?
+A6: The Timetable tab defines your weekly recurring schedule. The Daily Log tab lets you track individual day attendance for scheduled lectures (Attended, Missed, or Cancelled), record lecture notes (proxy lecturers, assignments, room changes), and make temporary one-day schedule swaps without modifying the master weekly template.
+
+Q7: What happens if a teacher takes a proxy or a class is swapped for one day?
+A7: In the Daily Log tab, you can toggle subjects under 'Today's Schedule' to apply a one-day schedule override without altering your weekly master timetable. You can reset back to the default schedule with a single click.
+
+Q8: Does the website work on mobile phones and tablets?
+A8: Yes. The layout is responsive. On phones, the schedule renders as touch-friendly cards and bottom sheets. On tablets and laptops, it expands into a full timetable matrix.
+
+Q9: Can I export or reset my timetable?
+A9: You can clear daily logs or reset the entire system back to clean defaults using the 'Clear logs' and 'Reset to defaults' controls inside the Subjects section.
+
+Q10: Are there any subscription fees or paid API dependencies?
+A10: No. The application is entirely client-side, open-source, and free to host and run locally or on any static hosting platform.

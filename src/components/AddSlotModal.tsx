@@ -85,12 +85,13 @@ export default function AddSlotModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0d1e17]/80 backdrop-blur-md">
+      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-[#0d1e17]/85 backdrop-blur-md">
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 8 }}
+          initial={{ opacity: 0, scale: 0.96, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 8 }}
-          className="w-full max-w-lg rounded-2xl border border-[rgba(231,231,221,0.16)] bg-[#1b3f33] p-6 shadow-2xl text-[#e7e7dd]"
+          exit={{ opacity: 0, scale: 0.96, y: 16 }}
+          transition={{ duration: 0.2 }}
+          className="w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-2xl border border-[rgba(231,231,221,0.16)] bg-[#1b3f33] p-5 sm:p-6 shadow-2xl text-[#e7e7dd]"
         >
           <div className="flex items-center justify-between border-b border-[rgba(231,231,221,0.12)] pb-4">
             <div>
@@ -213,14 +214,14 @@ export default function AddSlotModal({
                 })}
               </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-3">
+              <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="text-[11px] text-[#a4b5aa]">Start Time</label>
                   <input
                     type="time"
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-3.5 py-2 text-sm text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
+                    className="mt-1 w-full rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-3.5 py-2.5 text-sm text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
                   />
                 </div>
                 <div>
@@ -229,7 +230,7 @@ export default function AddSlotModal({
                     type="time"
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-3.5 py-2 text-sm text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
+                    className="mt-1 w-full rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-3.5 py-2.5 text-sm text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
                   />
                 </div>
               </div>
@@ -256,18 +257,18 @@ export default function AddSlotModal({
               </div>
             )}
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-[rgba(231,231,221,0.12)]">
+            <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 pt-3 border-t border-[rgba(231,231,221,0.12)]">
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-xl border border-[rgba(231,231,221,0.16)] px-4 py-2 text-xs font-semibold text-[#a4b5aa] hover:bg-[#20493b] hover:text-[#e7e7dd] transition"
+                className="w-full sm:w-auto rounded-xl border border-[rgba(231,231,221,0.16)] px-5 py-2.5 text-xs font-semibold text-[#a4b5aa] hover:bg-[#20493b] hover:text-[#e7e7dd] transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={!validation.isValid}
-                className="rounded-xl bg-[#f5f2df] px-6 py-2 text-xs font-bold text-[#16362b] hover:bg-[#ede8d0] disabled:opacity-40 transition shadow-sm"
+                className="w-full sm:w-auto rounded-xl bg-[#f5f2df] px-6 py-2.5 text-xs font-bold text-[#16362b] hover:bg-[#ede8d0] disabled:opacity-40 transition shadow-sm"
               >
                 {editingSlot ? "Update Session" : "Schedule Class"}
               </button>

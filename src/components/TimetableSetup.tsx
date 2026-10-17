@@ -172,11 +172,11 @@ export default function TimetableSetup() {
   return (
     <div className="space-y-8 text-[#e7e7dd]">
       {/* Subjects Card */}
-      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-6 sm:p-8 shadow-sm">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-4 sm:p-6 lg:p-8 shadow-sm">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-xl font-bold text-[#e7e7dd]">Subjects & Faculty</h2>
-            <p className="text-sm text-[#a4b5aa] mt-0.5">
+            <h2 className="text-lg sm:text-xl font-bold text-[#e7e7dd]">Subjects & Faculty</h2>
+            <p className="text-xs sm:text-sm text-[#a4b5aa] mt-0.5">
               Add subjects and assign faculty to prevent scheduling clashes.
             </p>
           </div>
@@ -196,38 +196,38 @@ export default function TimetableSetup() {
           </div>
         </div>
 
-        <form onSubmit={handleAddSubject} className="mt-6 grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
+        <form onSubmit={handleAddSubject} className="mt-5 sm:mt-6 grid gap-3 grid-cols-1 sm:grid-cols-[1fr_1fr_auto]">
           <input
             value={subjectName}
             onChange={(event) => setSubjectName(event.target.value)}
             placeholder="Subject name (e.g. Data Structures)"
-            className="rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-4 py-3 text-sm text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
+            className="w-full rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-4 py-2.5 sm:py-3 text-sm text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
           />
           <input
             value={teacherName}
             onChange={(event) => setTeacherName(event.target.value)}
             placeholder="Teacher's name (e.g. Dr. Alan Turing)"
-            className="rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-4 py-3 text-sm text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
+            className="w-full rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-4 py-2.5 sm:py-3 text-sm text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
           />
           <button
             type="submit"
-            className="rounded-xl bg-[#f5f2df] px-6 py-3 text-sm font-bold text-[#16362b] transition hover:bg-[#ede8d0] shadow-sm"
+            className="w-full sm:w-auto rounded-xl bg-[#f5f2df] px-6 py-2.5 sm:py-3 text-sm font-bold text-[#16362b] transition hover:bg-[#ede8d0] shadow-sm"
           >
             Add Subject
           </button>
         </form>
 
-        <div className="mt-6 flex flex-wrap gap-2.5">
+        <div className="mt-5 sm:mt-6 flex flex-wrap gap-2">
           {state.subjects.map((subject) => (
             <motion.div
               whileHover={{ y: -1 }}
               key={subject.id}
-              className="flex items-center gap-2.5 rounded-full border border-[rgba(231,231,221,0.14)] bg-[#20493b] px-4 py-2 text-xs text-[#e7e7dd] shadow-sm"
+              className="flex items-center gap-2 rounded-full border border-[rgba(231,231,221,0.14)] bg-[#20493b] px-3.5 py-1.5 text-xs text-[#e7e7dd] shadow-sm"
             >
-              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: subject.color }} />
+              <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: subject.color }} />
               <span className="font-semibold text-[#e7e7dd]">{subject.name}</span>
               {subject.teacher && (
-                <span className="rounded-md bg-[#122c23] px-2.5 py-0.5 text-[11px] font-semibold text-[#f5f2df]">
+                <span className="rounded-md bg-[#122c23] px-2 py-0.5 text-[11px] font-semibold text-[#f5f2df]">
                   {subject.teacher}
                 </span>
               )}
@@ -244,17 +244,17 @@ export default function TimetableSetup() {
       </div>
 
       {/* Weekly Schedule Section */}
-      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-6 sm:p-8 shadow-sm space-y-6">
+      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-4 sm:p-6 lg:p-8 shadow-sm space-y-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-xl font-bold text-[#e7e7dd]">Weekly Schedule & Clash Prevention</h2>
-            <p className="text-sm text-[#a4b5aa] mt-0.5">
+            <h2 className="text-lg sm:text-xl font-bold text-[#e7e7dd]">Weekly Schedule & Clash Prevention</h2>
+            <p className="text-xs sm:text-sm text-[#a4b5aa] mt-0.5">
               Organized by day, room, and period. Overlaps are prevented deterministically.
             </p>
           </div>
           <button
             onClick={() => handleOpenAddModal("Mon")}
-            className="rounded-xl bg-[#f5f2df] px-5 py-2.5 text-xs font-bold text-[#16362b] hover:bg-[#ede8d0] transition shadow-sm"
+            className="w-full sm:w-auto rounded-xl bg-[#f5f2df] px-5 py-2.5 text-xs font-bold text-[#16362b] hover:bg-[#ede8d0] transition shadow-sm text-center"
           >
             + Schedule New Class
           </button>
@@ -371,10 +371,10 @@ export default function TimetableSetup() {
       </div>
 
       {/* Expanded Master Schedule Matrix */}
-      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-6 sm:p-8 shadow-sm space-y-6">
+      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-4 sm:p-6 lg:p-8 shadow-sm space-y-6">
         <div>
-          <h2 className="text-xl font-bold text-[#e7e7dd]">Schedule Master Matrix</h2>
-          <p className="text-sm text-[#a4b5aa] mt-0.5">
+          <h2 className="text-lg sm:text-xl font-bold text-[#e7e7dd]">Schedule Master Matrix</h2>
+          <p className="text-xs sm:text-sm text-[#a4b5aa] mt-0.5">
             Full comprehensive timetable matrix sorted chronologically with day filtering.
           </p>
         </div>

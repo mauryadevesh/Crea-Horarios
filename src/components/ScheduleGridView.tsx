@@ -42,43 +42,41 @@ export default function ScheduleGridView({
 
   return (
     <div className="space-y-6">
-      {/* Day Filter Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(231,231,221,0.12)] pb-4">
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#a4b5aa] mr-2">
-            Filter Day:
-          </span>
-          <button
-            onClick={() => setSelectedDayFilter("ALL")}
-            className={`rounded-xl px-4 py-2 text-xs font-semibold transition ${
-              selectedDayFilter === "ALL"
-                ? "bg-[#f5f2df] text-[#16362b] font-bold shadow-sm"
-                : "border border-[rgba(231,231,221,0.14)] bg-[#20493b] text-[#a4b5aa] hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
-            }`}
-          >
-            All Week ({slots.length})
-          </button>
-          {days.map((d) => {
-            const count = slots.filter((s) => s.day === d).length;
-            const isSelected = selectedDayFilter === d;
-            return (
-              <button
-                key={d}
-                onClick={() => setSelectedDayFilter(d)}
-                className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition ${
-                  isSelected
-                    ? "bg-[#f5f2df] text-[#16362b] font-bold shadow-sm"
-                    : "border border-[rgba(231,231,221,0.14)] bg-[#20493b] text-[#a4b5aa] hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
-                }`}
-              >
-                {d} ({count})
-              </button>
-            );
-          })}
-        </div>
+      {/* Day Filter Toolbar - smooth horizontal swipe on touch */}
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-2 px-2 sm:mx-0 sm:px-0 border-b border-[rgba(231,231,221,0.12)] pb-4">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#a4b5aa] shrink-0 mr-1">
+          Filter Day:
+        </span>
+        <button
+          onClick={() => setSelectedDayFilter("ALL")}
+          className={`shrink-0 rounded-xl px-4 py-2 text-xs font-semibold transition ${
+            selectedDayFilter === "ALL"
+              ? "bg-[#f5f2df] text-[#16362b] font-bold shadow-sm"
+              : "border border-[rgba(231,231,221,0.14)] bg-[#20493b] text-[#a4b5aa] hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
+          }`}
+        >
+          All Week ({slots.length})
+        </button>
+        {days.map((d) => {
+          const count = slots.filter((s) => s.day === d).length;
+          const isSelected = selectedDayFilter === d;
+          return (
+            <button
+              key={d}
+              onClick={() => setSelectedDayFilter(d)}
+              className={`shrink-0 rounded-xl px-3.5 py-2 text-xs font-semibold transition ${
+                isSelected
+                  ? "bg-[#f5f2df] text-[#16362b] font-bold shadow-sm"
+                  : "border border-[rgba(231,231,221,0.14)] bg-[#20493b] text-[#a4b5aa] hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
+              }`}
+            >
+              {d} ({count})
+            </button>
+          );
+        })}
       </div>
 
-      {/* Large Schedule Presentation */}
+      {/* Schedule Presentation */}
       <div className="space-y-6">
         {filteredDays.map((day) => {
           const daySlots = slots
@@ -92,11 +90,11 @@ export default function ScheduleGridView({
           return (
             <div
               key={day}
-              className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-6 shadow-sm space-y-4"
+              className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-4 sm:p-6 shadow-sm space-y-4"
             >
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(231,231,221,0.12)] pb-3">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-xl font-bold text-[#e7e7dd]">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#e7e7dd]">
                     {dayFullNames[day]}
                   </h3>
                   <span className="rounded-full bg-[#20493b] px-3 py-0.5 text-xs font-medium text-[#c6d4cb]">
@@ -110,88 +108,157 @@ export default function ScheduleGridView({
                   No classes scheduled for {dayFullNames[day]}.
                 </div>
               ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="border-b border-[rgba(231,231,221,0.12)] text-xs font-semibold uppercase tracking-wider text-[#a4b5aa]">
-                        <th className="py-3 px-4">Period</th>
-                        <th className="py-3 px-4">Subject</th>
-                        <th className="py-3 px-4">Faculty</th>
-                        <th className="py-3 px-4">Room</th>
-                        <th className="py-3 px-4 text-right">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[rgba(231,231,221,0.08)] text-sm">
-                      {daySlots.map((slot) => {
-                        const subject = subjectMap.get(slot.subjectId);
-                        const hasConflict = conflictingIds.has(slot.id);
+                <>
+                  {/* Mobile Card Layout (phones: screen width < 768px) */}
+                  <div className="space-y-3 block md:hidden">
+                    {daySlots.map((slot) => {
+                      const subject = subjectMap.get(slot.subjectId);
+                      const hasConflict = conflictingIds.has(slot.id);
 
-                        return (
-                          <tr
-                            key={slot.id}
-                            className={`transition hover:bg-[#20493b]/40 ${
-                              hasConflict ? "bg-rose-950/25" : ""
-                            }`}
-                          >
-                            <td className="py-4 px-4 whitespace-nowrap">
-                              <span className="inline-flex items-center rounded-lg bg-[#20493b] border border-[rgba(231,231,221,0.14)] px-3 py-1.5 text-xs font-semibold text-[#f5f2df] shadow-sm">
-                                {slot.startTime} - {slot.endTime}
-                              </span>
-                            </td>
+                      return (
+                        <div
+                          key={slot.id}
+                          className={`rounded-xl border p-4 space-y-3 transition ${
+                            hasConflict
+                              ? "border-rose-500/80 bg-[#2b1f24]"
+                              : "border-[rgba(231,231,221,0.12)] bg-[#16362b]/80"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="inline-flex items-center rounded-lg bg-[#20493b] border border-[rgba(231,231,221,0.14)] px-3 py-1 text-xs font-semibold text-[#f5f2df]">
+                              {slot.startTime} - {slot.endTime}
+                            </span>
+                            <span className="inline-flex items-center rounded-lg border border-[rgba(231,231,221,0.12)] bg-[#122c23] px-2.5 py-1 text-xs font-medium text-[#c6d4cb]">
+                              {slot.room || "No Room"}
+                            </span>
+                          </div>
 
-                            <td className="py-4 px-4 font-semibold text-[#e7e7dd]">
-                              <div className="flex items-center gap-3">
-                                <span
-                                  className="h-2.5 w-2.5 rounded-full shrink-0 shadow-sm"
-                                  style={{ backgroundColor: subject?.color ?? "#a4b5aa" }}
-                                />
-                                <div>
-                                  <p className="text-base font-bold text-[#e7e7dd]">
-                                    {subject?.name ?? slot.subjectId}
-                                  </p>
-                                  {hasConflict && (
-                                    <span className="mt-1 inline-flex items-center rounded bg-rose-900/60 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-rose-200">
-                                      Conflict Detected
-                                    </span>
-                                  )}
+                          <div className="flex items-center gap-2.5">
+                            <span
+                              className="h-2.5 w-2.5 rounded-full shrink-0 shadow-sm"
+                              style={{ backgroundColor: subject?.color ?? "#a4b5aa" }}
+                            />
+                            <p className="font-bold text-base text-[#e7e7dd]">
+                              {subject?.name ?? slot.subjectId}
+                            </p>
+                          </div>
+
+                          <p className="text-xs text-[#c6d4cb] flex items-center gap-1.5">
+                            <span className="text-[#a4b5aa]">Faculty:</span>
+                            <span className="font-medium text-[#e7e7dd]">
+                              {subject?.teacher || "Not assigned"}
+                            </span>
+                          </p>
+
+                          {hasConflict && (
+                            <span className="inline-block rounded bg-rose-900/60 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-rose-200">
+                              Conflict Detected
+                            </span>
+                          )}
+
+                          <div className="flex items-center justify-end gap-2 pt-2.5 border-t border-[rgba(231,231,221,0.1)]">
+                            <button
+                              onClick={() => onEdit(slot)}
+                              className="flex-1 rounded-lg border border-[rgba(231,231,221,0.14)] bg-[#20493b] py-2 text-xs font-semibold text-[#f5f2df] text-center"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => onDelete(slot.id)}
+                              className="flex-1 rounded-lg border border-[rgba(231,231,221,0.14)] bg-[#20493b] py-2 text-xs font-semibold text-rose-300 text-center"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Tablet & Laptop Matrix Table (screens >= 768px) */}
+                  <div className="overflow-x-auto hidden md:block">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-[rgba(231,231,221,0.12)] text-xs font-semibold uppercase tracking-wider text-[#a4b5aa]">
+                          <th className="py-3 px-4">Period</th>
+                          <th className="py-3 px-4">Subject</th>
+                          <th className="py-3 px-4">Faculty</th>
+                          <th className="py-3 px-4">Room</th>
+                          <th className="py-3 px-4 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[rgba(231,231,221,0.08)] text-sm">
+                        {daySlots.map((slot) => {
+                          const subject = subjectMap.get(slot.subjectId);
+                          const hasConflict = conflictingIds.has(slot.id);
+
+                          return (
+                            <tr
+                              key={slot.id}
+                              className={`transition hover:bg-[#20493b]/40 ${
+                                hasConflict ? "bg-rose-950/25" : ""
+                              }`}
+                            >
+                              <td className="py-4 px-4 whitespace-nowrap">
+                                <span className="inline-flex items-center rounded-lg bg-[#20493b] border border-[rgba(231,231,221,0.14)] px-3 py-1.5 text-xs font-semibold text-[#f5f2df] shadow-sm">
+                                  {slot.startTime} - {slot.endTime}
+                                </span>
+                              </td>
+
+                              <td className="py-4 px-4 font-semibold text-[#e7e7dd]">
+                                <div className="flex items-center gap-3">
+                                  <span
+                                    className="h-2.5 w-2.5 rounded-full shrink-0 shadow-sm"
+                                    style={{ backgroundColor: subject?.color ?? "#a4b5aa" }}
+                                  />
+                                  <div>
+                                    <p className="text-base font-bold text-[#e7e7dd]">
+                                      {subject?.name ?? slot.subjectId}
+                                    </p>
+                                    {hasConflict && (
+                                      <span className="mt-1 inline-flex items-center rounded bg-rose-900/60 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-rose-200">
+                                        Conflict Detected
+                                      </span>
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            </td>
+                              </td>
 
-                            <td className="py-4 px-4 text-[#c6d4cb]">
-                              <span className="font-medium text-[#e7e7dd] text-sm">
-                                {subject?.teacher || "Not assigned"}
-                              </span>
-                            </td>
+                              <td className="py-4 px-4 text-[#c6d4cb]">
+                                <span className="font-medium text-[#e7e7dd] text-sm">
+                                  {subject?.teacher || "Not assigned"}
+                                </span>
+                              </td>
 
-                            <td className="py-4 px-4 whitespace-nowrap">
-                              <span className="inline-flex items-center rounded-lg border border-[rgba(231,231,221,0.12)] bg-[#122c23] px-3 py-1.5 text-xs font-medium text-[#c6d4cb]">
-                                {slot.room || "No Room"}
-                              </span>
-                            </td>
+                              <td className="py-4 px-4 whitespace-nowrap">
+                                <span className="inline-flex items-center rounded-lg border border-[rgba(231,231,221,0.12)] bg-[#122c23] px-3 py-1.5 text-xs font-medium text-[#c6d4cb]">
+                                  {slot.room || "No Room"}
+                                </span>
+                              </td>
 
-                            <td className="py-4 px-4 text-right whitespace-nowrap">
-                              <div className="flex items-center justify-end gap-2">
-                                <button
-                                  onClick={() => onEdit(slot)}
-                                  className="rounded-lg border border-[rgba(231,231,221,0.14)] bg-[#20493b] px-3.5 py-1.5 text-xs font-semibold text-[#f5f2df] hover:border-[rgba(231,231,221,0.3)] transition"
-                                >
-                                  Edit
-                                </button>
-                                <button
-                                  onClick={() => onDelete(slot.id)}
-                                  className="rounded-lg border border-[rgba(231,231,221,0.14)] bg-[#20493b] px-3.5 py-1.5 text-xs font-semibold text-rose-300 hover:border-rose-400 transition"
-                                >
-                                  Delete
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
+                              <td className="py-4 px-4 text-right whitespace-nowrap">
+                                <div className="flex items-center justify-end gap-2">
+                                  <button
+                                    onClick={() => onEdit(slot)}
+                                    className="rounded-lg border border-[rgba(231,231,221,0.14)] bg-[#20493b] px-3.5 py-1.5 text-xs font-semibold text-[#f5f2df] hover:border-[rgba(231,231,221,0.3)] transition"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    onClick={() => onDelete(slot.id)}
+                                    className="rounded-lg border border-[rgba(231,231,221,0.14)] bg-[#20493b] px-3.5 py-1.5 text-xs font-semibold text-rose-300 hover:border-rose-400 transition"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
               )}
             </div>
           );

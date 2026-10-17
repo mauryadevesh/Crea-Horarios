@@ -1,6 +1,6 @@
 # Weekly Timetable Maker
 
-A minimalist, responsive timetable maker with light/dark mode, animated UI, and local persistence.
+A minimalist, conflict-free responsive timetable maker with light/dark theme, animated UI, automated conflict detection, and local persistence.
 
 ## Features
 - Weekly timetable setup & custom schedule builder
@@ -80,6 +80,7 @@ create policy "Anyone can submit feedback" on public.feedback for insert with ch
 - Install it from the browser menu ("Add to Home Screen").
 
 ## Project Structure
-- `src/lib` core logic and storage
-- `src/components` UI components
+- `src/lib` core logic, clash checking, and storage
+- `src/components` UI components and responsive timetable views
 - `src/data` seed state
+
