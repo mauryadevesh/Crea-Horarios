@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # College Attendance Calculator
 
 A minimalist, responsive attendance tracker with light/dark mode, animated UI, and local persistence.
@@ -91,4 +90,3 @@ create policy "Anyone can submit feedback" on public.feedback for insert with ch
 =======
 # Crea-Horarios
 A timetable maker to be used in Colleges and Schools.
->>>>>>> 2b37a2f1b314d1809549bb56a5576063934aedda
