@@ -5,7 +5,7 @@ import { AttendanceProvider, useAttendance } from "./context/AttendanceContext";
 import Alerts from "./components/Alerts";
 import TimetableSetup from "./components/TimetableSetup";
 import DailyLogging from "./components/DailyLogging";
-import AuthPanel from "./components/AuthPanel";
+import JsonDatabasePanel from "./components/JsonDatabasePanel";
 import FeedbackForm from "./components/FeedbackForm";
 
 const tabs = [
@@ -40,7 +40,7 @@ function AppContent() {
             </p>
           </div>
           <div className="flex flex-col gap-4 sm:items-start lg:items-end w-full lg:w-auto">
-            <AuthPanel />
+            <JsonDatabasePanel />
           </div>
         </header>
 

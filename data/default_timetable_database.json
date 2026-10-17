@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "databaseName": "WeeklyTimetableDatabase",
+  "lastModified": "2026-10-17T12:00:00.000Z",
+  "data": {
+    "target": 75,
+    "subjects": [
+      {
+        "id": "mathematics",
+        "name": "Mathematics",
+        "teacher": "Dr. Srinivasa Ramanujan",
+        "color": "#6366f1"
+      },
+      {
+        "id": "physics",
+        "name": "Physics",
+        "teacher": "Dr. Richard Feynman",
+        "color": "#14b8a6"
+      },
+      {
+        "id": "chemistry",
+        "name": "Chemistry",
+        "teacher": "Dr. Marie Curie",
+        "color": "#f97316"
+      },
+      {
+        "id": "computer-science",
+        "name": "Computer Science",
+        "teacher": "Dr. Alan Turing",
+        "color": "#ec4899"
+      }
+    ],
+    "timetable": {
+      "Mon": ["mathematics", "physics", "chemistry"],
+      "Tue": ["physics", "computer-science", "mathematics"],
+      "Wed": ["chemistry", "computer-science"],
+      "Thu": ["mathematics", "physics"],
+      "Fri": ["computer-science", "chemistry"],
+      "Sat": [],
+      "Sun": []
+    },
+    "slots": [
+      {
+        "id": "seed-mon-1",
+        "day": "Mon",
+        "subjectId": "mathematics",
+        "room": "Room 101",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "id": "seed-mon-2",
+        "day": "Mon",
+        "subjectId": "physics",
+        "room": "Lab A",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "id": "seed-mon-3",
+        "day": "Mon",
+        "subjectId": "chemistry",
+        "room": "Room 201",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "id": "seed-tue-1",
+        "day": "Tue",
+        "subjectId": "physics",
+        "room": "Lab A",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "id": "seed-tue-2",
+        "day": "Tue",
+        "subjectId": "computer-science",
+        "room": "Lab B",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "id": "seed-tue-3",
+        "day": "Tue",
+        "subjectId": "mathematics",
+        "room": "Room 101",
+        "startTime": "11:00",
+        "endTime": "12:00"
+      },
+      {
+        "id": "seed-wed-1",
+        "day": "Wed",
+        "subjectId": "chemistry",
+        "room": "Room 201",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "id": "seed-wed-2",
+        "day": "Wed",
+        "subjectId": "computer-science",
+        "room": "Lab B",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "id": "seed-thu-1",
+        "day": "Thu",
+        "subjectId": "mathematics",
+        "room": "Room 101",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "id": "seed-thu-2",
+        "day": "Thu",
+        "subjectId": "physics",
+        "room": "Lab A",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      },
+      {
+        "id": "seed-fri-1",
+        "day": "Fri",
+        "subjectId": "computer-science",
+        "room": "Lab B",
+        "startTime": "09:00",
+        "endTime": "10:00"
+      },
+      {
+        "id": "seed-fri-2",
+        "day": "Fri",
+        "subjectId": "chemistry",
+        "room": "Room 201",
+        "startTime": "10:00",
+        "endTime": "11:00"
+      }
+    ],
+    "logs": {},
+    "notes": {},
+    "overrides": {}
+  }
+}

@@ -22,6 +22,7 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
 
   handleReset = () => {
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem("timetable_json_database_v1");
     window.location.reload();
   };
 
@@ -34,9 +35,9 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
       <div className="min-h-screen bg-surface-light px-6 py-12 text-slate-900 dark:bg-surface-dark dark:text-slate-100">
         <div className="mx-auto max-w-xl rounded-3xl border border-slate-200 bg-white/80 p-6 text-center shadow-soft backdrop-blur dark:border-slate-800 dark:bg-slate-900/80">
           <p className="text-sm uppercase tracking-[0.2em] text-slate-400">Something went wrong</p>
-          <h1 className="mt-3 text-2xl font-semibold">We could not load your attendance data.</h1>
+          <h1 className="mt-3 text-2xl font-semibold">We could not load your timetable data.</h1>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            You can reset local data and start fresh. Your Supabase data stays intact.
+            You can reset local data and start fresh with a clean default database.
           </p>
           <button
             onClick={this.handleReset}

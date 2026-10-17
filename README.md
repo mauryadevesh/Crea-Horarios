@@ -1,86 +1,56 @@
 # Weekly Timetable Maker
 
-A minimalist, conflict-free responsive timetable maker with light/dark theme, animated UI, automated conflict detection, and local persistence.
+A minimalist, conflict-free responsive timetable planner and daily lecture logger with an offline-first local JSON Database.
 
 ## Features
-- Weekly timetable setup & custom schedule builder
-- Daily logging (Attended / Missed / Cancelled)
-- Mark day as holiday
-- Target attendance slider (default 75%)
-- Subject notes and schedule overrides
-- Supabase cloud sync & LocalStorage persistence
+- **Conflict-Free Timetable Builder**: Automated clash prevention for faculty double-booking, room overlap, and class collision.
+- **Dual-Mode Matrix**: Responsive mobile cards and desktop schedule data matrix with day-by-day filtering.
+- **Daily Lecture Log**: Real-time attendance logging (Attended, Missed, Cancelled) and single-day lecture swaps/overrides.
+- **Local JSON Database**: Offline-first storage with single-click JSON database Export and Import.
+- **Minimalist Aesthetic**: Dark forest palette (#16362B, #1B3F33, #F5F2DF) with zero emojis and custom typography.
 
 ## Tech Stack
-- React + TypeScript (Vite)
+- React 18 + TypeScript (Vite)
 - Tailwind CSS
 - Framer Motion
+- Vitest
 
-## Run locally
-1. Install dependencies
-2. Start the dev server
+## Getting Started
 
-### Commands
-- `npm install`
-- `npm run dev`
-- `npm run test:run`
-
-## Supabase Setup (Database & Auth)
-
-1. **Create a Project**: Go to [Supabase](https://supabase.com/) and create a new project.
-2. **Enable Auth**: Go to **Authentication > Providers** and enable **Email/Password**.
-3. **Database Schema**: Run the following SQL in the **SQL Editor** to create the necessary tables and security policies:
-
-```sql
--- 1. Attendance State Table
-create table if not exists public.attendance_state (
-	user_id uuid primary key references auth.users (id) on delete cascade,
-	state jsonb not null default '{}'::jsonb,
-	updated_at timestamptz not null default now()
-);
-
-alter table public.attendance_state enable row level security;
-
--- Policies for attendance_state
-create policy "Users can read own state" on public.attendance_state
-	for select using (auth.uid() = user_id);
-
-create policy "Users can insert own state" on public.attendance_state
-	for insert with check (auth.uid() = user_id);
-
-create policy "Users can update own state" on public.attendance_state
-	for update using (auth.uid() = user_id);
-
--- 2. Feedback Table (Optional - for logging feedback in DB)
-create table if not exists public.feedback (
-	id uuid primary key default gen_random_uuid(),
-	rating int not null,
-	category text not null,
-	message text not null,
-	email text null,
-	created_at timestamptz not null default now()
-);
-
-alter table public.feedback enable row level security;
-create policy "Anyone can submit feedback" on public.feedback for insert with check (true);
+### 1. Install Dependencies
+```bash
+npm install
 ```
 
-## Environment Variables
+### 2. Start Local Development Server
+```bash
+npm run dev
+```
 
-1. Copy `.env.example` to a new file named `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-2. Fill in your credentials from the Supabase Dashboard (**Project Settings > API**):
-   - `VITE_SUPABASE_URL`: Your Project URL.
-   - `VITE_SUPABASE_ANON_KEY`: Your `anon` public key.
-   - `VITE_FEEDBACK_WEBHOOK_URL`: (Optional) URL for a webhook if you wish to receive feedback notifications.
+### 3. Run Test Suite
+```bash
+npm run test:run
+```
 
-## PWA
-- The app includes a manifest and service worker.
-- Install it from the browser menu ("Add to Home Screen").
+### 4. Build for Production
+```bash
+npm run build
+```
+
+## JSON Database Management
+The application operates entirely offline-first using a structured JSON database stored in your browser's LocalStorage.
+
+- **Export Database**: Click **Export JSON** in the top-right header panel to download your complete `timetable_database.json`.
+- **Import Database**: Click **Import JSON** to load and restore any previously exported `.json` schedule file.
+- **Integrity Verifier**: Run the deterministic CLI verification script:
+  ```bash
+  node execution/verify_json_db.mjs [path_to_json_file]
+  ```
+- **Template Reference**: Default seed template is available at [`data/default_timetable_database.json`](data/default_timetable_database.json).
 
 ## Project Structure
-- `src/lib` core logic, clash checking, and storage
-- `src/components` UI components and responsive timetable views
-- `src/data` seed state
-
+- `src/lib/` - Conflict engine, JSON database manager, and persistence logic
+- `src/components/` - Responsive timetable views, modal builders, and JSON database panel
+- `data/` - Default JSON database templates and seed data
+- `directives/` - Standard Operating Procedures (SOPs)
+- `execution/` - Deterministic verification scripts
