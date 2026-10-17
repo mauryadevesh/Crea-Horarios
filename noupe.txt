@@ -44,11 +44,9 @@ Active Sections & Features on the Website:
    - Custom note input per lecture for assignments, proxies, or room changes.
    - Feedback & Suggestions form (rating, category, message, email).
 
-3. LOCAL JSON DATABASE & EXPORT/IMPORT:
-   - Built-in JSON Database Manager panel in the header.
-   - Offline-first LocalStorage persistence for all subjects, slots, logs, and notes.
-   - Single-click 'Export JSON' to download complete timetable_database.json.
-   - 'Import JSON' to load and restore any timetable JSON file instantly.
+3. LOCAL JSON PERSISTENCE:
+   - Automatic offline-first local storage persistence for all subjects, slots, logs, and notes.
+
 
 4. EMBEDDED AI ASSISTANT:
    - Floating Noupe AI chatbot widget ready to help users navigate and manage their schedules.
@@ -87,7 +85,7 @@ Q8: What if a class is swapped or cancelled for just one day?
 A8: Under 'Today’s Schedule' in the Log tab, simply click any subject pill to toggle it on or off for that date. This modifies only the selected day's log without changing your recurring weekly timetable. Click 'Reset to default schedule' anytime to revert back.
 
 Q9: Is my timetable data saved automatically?
-A9: Yes. Everything is saved automatically to your browser's local JSON database. You can also export your complete database as a 'timetable_database.json' file using the 'Export JSON' button in the header, or import an existing file using 'Import JSON'.
+A9: Yes. Everything is saved automatically and persistently in your browser's local storage, ensuring your timetable is always ready offline.
 
 Q10: Does the website work on mobile phones and tablets?
 A10: Yes. On mobile phones, the schedule renders as touch-friendly cards and bottom-sheet dialogs. On tablets and laptops, it displays an expanded matrix table.

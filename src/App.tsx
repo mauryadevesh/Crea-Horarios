@@ -5,7 +5,6 @@ import { AttendanceProvider, useAttendance } from "./context/AttendanceContext";
 import Alerts from "./components/Alerts";
 import TimetableSetup from "./components/TimetableSetup";
 import DailyLogging from "./components/DailyLogging";
-import JsonDatabasePanel from "./components/JsonDatabasePanel";
 import FeedbackForm from "./components/FeedbackForm";
 
 const tabs = [
@@ -38,9 +37,6 @@ function AppContent() {
             <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-[#a4b5aa] leading-relaxed">
               Build your weekly schedule with teacher and room assignments, preventing double-bookings and clashes automatically.
             </p>
-          </div>
-          <div className="flex flex-col gap-4 sm:items-start lg:items-end w-full lg:w-auto">
-            <JsonDatabasePanel />
           </div>
         </header>
 
