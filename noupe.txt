@@ -51,9 +51,6 @@ Active Sections & Features on the Website:
 4. EMBEDDED AI ASSISTANT:
    - Floating Noupe AI chatbot widget ready to help users navigate and manage their schedules.
 
-5. FREQUENTLY ASKED QUESTIONS ACCORDION:
-   - Collapsible FAQ guide located at the bottom of the page.
-
 
 ================================================================================
 2. FREQUENTLY ASKED QUESTIONS (FAQs)

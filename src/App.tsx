@@ -7,7 +7,6 @@ import TimetableSetup from "./components/TimetableSetup";
 import DailyLogging from "./components/DailyLogging";
 import AuthPanel from "./components/AuthPanel";
 import FeedbackForm from "./components/FeedbackForm";
-import FaqSection from "./components/FaqSection";
 
 const tabs = [
   { id: "timetable", label: "Timetable" },
@@ -105,10 +104,6 @@ function AppContent() {
               </motion.article>
             )}
           </AnimatePresence>
-        </section>
-
-        <section className="mt-12" aria-label="FAQ">
-          <FaqSection />
         </section>
       </section>
     </main>
