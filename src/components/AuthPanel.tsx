@@ -21,16 +21,16 @@ export default function AuthPanel() {
 
   if (email) {
     return (
-      <div className="glass relative z-20 rounded-2xl border border-slate-200 px-4 py-3 text-sm shadow-soft dark:border-slate-800">
-        <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Account</p>
+      <div className="relative z-20 rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33]/95 px-4 py-3 text-sm shadow-md">
+        <p className="text-xs uppercase tracking-[0.2em] text-[#a4b5aa]">Account</p>
         <div className="mt-2 flex items-center gap-3">
           <div className="flex-1">
-            <p className="text-sm font-semibold">{email}</p>
-            <p className="text-xs text-slate-500">Sync: {status}</p>
+            <p className="text-sm font-semibold text-[#e7e7dd]">{email}</p>
+            <p className="text-xs text-[#a4b5aa]">Sync: {status}</p>
           </div>
           <button
             onClick={signOut}
-            className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-500 transition hover:border-slate-400 hover:text-slate-800 dark:border-slate-700 dark:text-slate-300"
+            className="rounded-xl border border-[rgba(231,231,221,0.14)] bg-[#20493b] px-3.5 py-1.5 text-xs font-semibold text-[#f5f2df] transition hover:border-[rgba(231,231,221,0.3)]"
           >
             Sign out
           </button>
@@ -40,24 +40,24 @@ export default function AuthPanel() {
   }
 
   return (
-    <div className="glass relative z-20 rounded-2xl border border-slate-200 px-4 py-3 shadow-soft dark:border-slate-800">
+    <div className="relative z-20 rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33]/95 px-4 py-3 shadow-md">
       <div className="flex items-center gap-2">
         <button
           onClick={() => setMode("signin")}
-          className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
+          className={`rounded-full px-3.5 py-1 text-xs font-semibold transition ${
             mode === "signin"
-              ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-              : "border border-slate-200 text-slate-500 dark:border-slate-700 dark:text-slate-300"
+              ? "bg-[#f5f2df] text-[#16362b] font-bold shadow-sm"
+              : "border border-[rgba(231,231,221,0.14)] bg-[#20493b] text-[#a4b5aa] hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
           }`}
         >
           Sign in
         </button>
         <button
           onClick={() => setMode("signup")}
-          className={`rounded-full px-3 py-1 text-xs font-semibold transition ${
+          className={`rounded-full px-3.5 py-1 text-xs font-semibold transition ${
             mode === "signup"
-              ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-              : "border border-slate-200 text-slate-500 dark:border-slate-700 dark:text-slate-300"
+              ? "bg-[#f5f2df] text-[#16362b] font-bold shadow-sm"
+              : "border border-[rgba(231,231,221,0.14)] bg-[#20493b] text-[#a4b5aa] hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
           }`}
         >
           Sign up
@@ -69,25 +69,25 @@ export default function AuthPanel() {
           value={formEmail}
           onChange={(event) => setFormEmail(event.target.value)}
           placeholder="Email"
-          className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-sm outline-none focus:border-slate-400 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
+          className="rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-3 py-2 text-xs text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
         />
         <input
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           placeholder="Password"
-          className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-sm outline-none focus:border-slate-400 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
+          className="rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-3 py-2 text-xs text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
         />
-        {message && <p className="text-xs text-rose-500">{message}</p>}
+        {message && <p className="text-xs text-rose-300">{message}</p>}
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60 dark:bg-white dark:text-slate-900"
+          className="rounded-xl bg-[#f5f2df] px-3 py-2 text-xs font-bold text-[#16362b] transition hover:bg-[#ede8d0] disabled:opacity-60 shadow-sm"
         >
           {mode === "signin" ? "Sign in" : "Create account"}
         </button>
-        <p className="text-[11px] text-slate-500">
-          Your data syncs to Supabase when logged in.
+        <p className="text-[11px] text-[#a4b5aa]">
+          Your timetable data syncs when logged in.
         </p>
       </div>
     </div>

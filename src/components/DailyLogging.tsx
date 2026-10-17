@@ -5,9 +5,9 @@ import { getTodayDateKey, getTodayKey } from "../lib/attendance";
 import { useAttendance } from "../context/AttendanceContext";
 
 const statusOptions: { value: AttendanceStatus; label: string; tone: string }[] = [
-  { value: "attended", label: "Attended", tone: "bg-emerald-500" },
-  { value: "missed", label: "Missed", tone: "bg-rose-500" },
-  { value: "cancelled", label: "Cancelled", tone: "bg-slate-400" },
+  { value: "attended", label: "Attended", tone: "bg-[#2e6954] text-[#f5f2df] border-[#55947b]" },
+  { value: "missed", label: "Missed", tone: "bg-[#5c2d36] text-[#ffdadf] border-[#8a424e]" },
+  { value: "cancelled", label: "Cancelled", tone: "bg-[#20493b] text-[#c6d4cb] border-[rgba(231,231,221,0.2)]" },
 ];
 
 export default function DailyLogging() {
@@ -44,26 +44,6 @@ export default function DailyLogging() {
     });
   };
 
-  const clearDay = () => {
-    const { [dateKey]: _, ...rest } = state.logs;
-    setState({ ...state, logs: rest });
-  };
-
-  const setAllStatuses = (status: AttendanceStatus) => {
-    if (todaySubjects.length === 0) return;
-    const nextLog = { ...dailyLog };
-    todaySubjects.forEach((subjectId) => {
-      nextLog[subjectId] = status;
-    });
-    setState({
-      ...state,
-      logs: {
-        ...state.logs,
-        [dateKey]: nextLog,
-      },
-    });
-  };
-
   const toggleOverrideSubject = (subjectId: string) => {
     const current = overrideSubjects ?? baseSubjects;
     const exists = current.includes(subjectId);
@@ -86,76 +66,54 @@ export default function DailyLogging() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+    <div className="space-y-6 text-[#e7e7dd]">
+      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-6 shadow-sm">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-lg font-semibold">Daily log</h2>
-            <p className="text-sm text-slate-500">{selectedDayKey} • {dateKey}</p>
+            <h2 className="text-xl font-bold text-[#e7e7dd]">Daily Class Log</h2>
+            <p className="text-sm text-[#a4b5aa] mt-0.5">
+              {selectedDayKey} • {dateKey}
+            </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div>
             <input
               type="date"
               value={selectedDate}
               onChange={(event) => setSelectedDate(event.target.value)}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-sm outline-none focus:border-slate-400 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
+              className="rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-4 py-2 text-xs text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
             />
-            <button
-              onClick={() => setAllStatuses("cancelled")}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-500 transition hover:border-slate-400 hover:text-slate-800 dark:border-slate-700 dark:text-slate-300"
-            >
-              Mark day holiday
-            </button>
-            <button
-              onClick={() => setAllStatuses("attended")}
-              className="rounded-xl border border-emerald-200 px-4 py-2 text-xs font-semibold text-emerald-600 transition hover:border-emerald-400 dark:border-emerald-500/40 dark:text-emerald-300"
-            >
-              Mark all attended
-            </button>
-            <button
-              onClick={() => setAllStatuses("missed")}
-              className="rounded-xl border border-rose-200 px-4 py-2 text-xs font-semibold text-rose-600 transition hover:border-rose-400 dark:border-rose-500/40 dark:text-rose-300"
-            >
-              Mark all missed
-            </button>
-            <button
-              onClick={clearDay}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-500 transition hover:border-slate-400 hover:text-slate-800 dark:border-slate-700 dark:text-slate-300"
-            >
-              Reset day
-            </button>
           </div>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-6 shadow-sm">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h3 className="text-sm font-semibold">Today’s schedule</h3>
-            <p className="text-xs text-slate-500">
-              Adjust subjects if a lecture changes or gets swapped.
+            <h3 className="text-base font-bold text-[#e7e7dd]">Today’s Schedule</h3>
+            <p className="text-xs text-[#a4b5aa] mt-0.5">
+              Toggle subjects if a lecture changes or gets swapped.
             </p>
           </div>
           {overrideSubjects && (
             <button
               onClick={resetOverride}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-500 transition hover:border-slate-400 hover:text-slate-800 dark:border-slate-700 dark:text-slate-300"
+              className="rounded-xl border border-[rgba(231,231,221,0.14)] bg-[#20493b] px-3.5 py-1.5 text-xs font-semibold text-[#f5f2df] hover:border-[rgba(231,231,221,0.3)] transition"
             >
-              Use timetable
+              Reset to default schedule
             </button>
           )}
         </div>
-        <div className="mt-4 flex flex-wrap gap-3">
+        <div className="mt-4 flex flex-wrap gap-2.5">
           {state.subjects.map((subject) => {
             const active = todaySubjects.includes(subject.id);
             return (
               <button
                 key={subject.id}
                 onClick={() => toggleOverrideSubject(subject.id)}
-                className={`module-outline rounded-full border px-4 py-2 text-xs font-semibold transition ${
+                className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition ${
                   active
-                    ? "border-[#7DD3FC] bg-[#7DD3FC] text-[#0B1020]"
-                    : "border-slate-200 text-slate-500 hover:border-slate-400 dark:border-slate-700 dark:text-slate-300"
+                    ? "border-transparent bg-[#f5f2df] text-[#16362b] font-bold shadow-sm"
+                    : "border-[rgba(231,231,221,0.14)] bg-[#20493b] text-[#a4b5aa] hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
                 }`}
               >
                 {subject.name}
@@ -165,38 +123,54 @@ export default function DailyLogging() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+      <div className="rounded-2xl border border-[rgba(231,231,221,0.14)] bg-[#1b3f33] p-6 shadow-sm">
         {todaySubjects.length === 0 ? (
-          <p className="text-sm text-slate-500">No classes scheduled for today.</p>
+          <p className="text-sm text-[#a4b5aa] italic">No classes scheduled for today.</p>
         ) : (
           <div className="space-y-4">
             {todaySubjects.map((subjectId) => {
               const subject = state.subjects.find((item) => item.id === subjectId);
               if (!subject) return null;
               const current = dailyLog[subjectId];
+              const slot = state.slots?.find(
+                (s) => s.day === selectedDayKey && s.subjectId === subjectId
+              );
+
               return (
                 <motion.div
                   key={subjectId}
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="module-outline flex flex-col gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
+                  className="flex flex-col gap-3 rounded-xl border border-[rgba(231,231,221,0.12)] bg-[#16362b]/80 p-5 transition"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: subject.color }} />
-                    <p className="text-sm font-semibold">{subject.name}</p>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2.5">
+                      <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: subject.color }} />
+                      <p className="text-base font-bold text-[#e7e7dd]">{subject.name}</p>
+                      {subject.teacher && (
+                        <span className="rounded-md bg-[#20493b] px-2.5 py-0.5 text-xs font-semibold text-[#f5f2df]">
+                          {subject.teacher}
+                        </span>
+                      )}
+                    </div>
+                    {slot && (
+                      <span className="rounded-md bg-[#122c23] border border-[rgba(231,231,221,0.12)] px-3 py-1 text-xs font-medium text-[#c6d4cb]">
+                        {slot.room} • {slot.startTime} - {slot.endTime}
+                      </span>
+                    )}
                   </div>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2.5">
                     {statusOptions.map((option) => {
                       const active = current === option.value;
                       return (
                         <button
                           key={option.value}
                           onClick={() => updateStatus(subjectId, option.value)}
-                          className={`module-outline rounded-full border px-4 py-2 text-xs font-semibold transition ${
+                          className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition ${
                             active
-                              ? "text-white"
-                              : "border border-slate-200 text-slate-500 hover:border-slate-400 dark:border-slate-700 dark:text-slate-300"
-                          } ${active ? option.tone : "bg-white dark:bg-slate-900"}`}
+                              ? `${option.tone} shadow-sm font-bold`
+                              : "border-[rgba(231,231,221,0.14)] bg-[#20493b] text-[#a4b5aa] hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
+                          }`}
                         >
                           {option.label}
                         </button>
@@ -206,8 +180,8 @@ export default function DailyLogging() {
                   <input
                     value={state.notes?.[dateKey]?.[subjectId] ?? ""}
                     onChange={(event) => updateNote(subjectId, event.target.value)}
-                    placeholder="Add a note (e.g. proxy, quiz, medical)"
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-sm outline-none focus:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                    placeholder="Add a note (e.g. proxy, assignment due, room change)"
+                    className="mt-1 w-full rounded-xl border border-[rgba(231,231,221,0.16)] bg-[#122c23] px-3.5 py-2 text-xs text-[#e7e7dd] shadow-sm outline-none focus:border-[#f5f2df]"
                   />
                 </motion.div>
               );
@@ -215,7 +189,6 @@ export default function DailyLogging() {
           </div>
         )}
       </div>
-
     </div>
   );
 }

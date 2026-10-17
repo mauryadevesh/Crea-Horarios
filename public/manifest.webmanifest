@@ -1,11 +1,11 @@
 {
-  "name": "College Attendance Tracker",
-  "short_name": "Attendance",
-  "description": "Track attendance, stay above target, and plan safely.",
+  "name": "Weekly Timetable Maker",
+  "short_name": "Timetable Maker",
+  "description": "Create weekly timetables, manage schedules, and log attendance.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0B0E12",
-  "theme_color": "#0B0E12",
+  "background_color": "#16362B",
+  "theme_color": "#16362B",
   "icons": [
     {
       "src": "/icon.svg",

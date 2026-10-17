@@ -3,6 +3,7 @@ import type { Dispatch, SetStateAction } from "react";
 import type { AttendanceState } from "./types";
 import { seedState } from "../data/seed";
 import { supabase, supabaseAnonKey, supabaseUrl } from "./supabase";
+import { deriveDefaultSlots } from "./conflicts";
 import { STORAGE_KEY } from "./constants";
 
 const TABLE = "attendance_state";
@@ -21,9 +22,14 @@ type SyncedState = {
 
 const mergeState = (incoming?: AttendanceState | null): AttendanceState => {
   if (!incoming) return seedState;
+  const subjects = incoming.subjects ?? seedState.subjects;
+  const timetable = incoming.timetable ?? seedState.timetable;
   return {
     ...seedState,
     ...incoming,
+    subjects,
+    timetable,
+    slots: incoming.slots ?? deriveDefaultSlots(timetable, subjects),
     overrides: incoming.overrides ?? {},
     notes: incoming.notes ?? {},
   };

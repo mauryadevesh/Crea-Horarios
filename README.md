@@ -1,19 +1,14 @@
-<<<<<<< HEAD
-# College Attendance Calculator
+# Weekly Timetable Maker
 
-A minimalist, responsive attendance tracker with light/dark mode, animated UI, and local persistence.
+A minimalist, responsive timetable maker with light/dark mode, animated UI, and local persistence.
 
 ## Features
-- Weekly timetable setup
+- Weekly timetable setup & custom schedule builder
 - Daily logging (Attended / Missed / Cancelled)
 - Mark day as holiday
 - Target attendance slider (default 75%)
-- Safe zone calculations (recover / bunkable)
-- Dashboard with donut chart
-- Calendar history view
-- Subject drill-down history
-- Subject notes and edits
-- LocalStorage persistence
+- Subject notes and schedule overrides
+- Supabase cloud sync & LocalStorage persistence
 
 ## Tech Stack
 - React + TypeScript (Vite)
@@ -88,7 +83,3 @@ create policy "Anyone can submit feedback" on public.feedback for insert with ch
 - `src/lib` core logic and storage
 - `src/components` UI components
 - `src/data` seed state
-=======
-# Crea-Horarios
-A timetable maker to be used in Colleges and Schools.
->>>>>>> 2b37a2f1b314d1809549bb56a5576063934aedda

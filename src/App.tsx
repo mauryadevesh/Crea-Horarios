@@ -3,17 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { computeSubjectSummary } from "./lib/attendance";
 import { AttendanceProvider, useAttendance } from "./context/AttendanceContext";
 import Alerts from "./components/Alerts";
-import Dashboard from "./components/Dashboard";
 import TimetableSetup from "./components/TimetableSetup";
 import DailyLogging from "./components/DailyLogging";
-import TargetMode from "./components/TargetMode";
 import AuthPanel from "./components/AuthPanel";
 import FeedbackForm from "./components/FeedbackForm";
 
 const tabs = [
-  { id: "dashboard", label: "Dashboard" },
   { id: "timetable", label: "Timetable" },
-  { id: "daily", label: "Daily Log" },
+  { id: "daily", label: "Log" },
 ] as const;
 
 type TabId = (typeof tabs)[number]["id"];
@@ -21,12 +18,10 @@ type TabId = (typeof tabs)[number]["id"];
 function AppContent() {
   const { state } = useAttendance();
   const [activeTab, setActiveTab] = useState<TabId>("timetable");
-  const [scope, setScope] = useState<"month" | "all">("month");
-  const [monthKey, setMonthKey] = useState(() => new Date().toISOString().slice(0, 7));
 
   const summary = useMemo(
-    () => computeSubjectSummary(state, scope === "month" ? monthKey : undefined),
-    [state, scope, monthKey]
+    () => computeSubjectSummary(state),
+    [state]
   );
 
   return (
@@ -34,18 +29,17 @@ function AppContent() {
       <section className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
         <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
+            <p className="font-dawnwalker text-xs sm:text-sm uppercase tracking-[0.25em] text-[#a4b5aa]">
               Weekly Timetable Maker
             </p>
-            <h1 className="font-gals mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Stay above your target
+            <h1 className="font-rogenz mt-2 text-3xl font-normal tracking-tight sm:text-4xl lg:text-5xl text-[#e7e7dd]">
+              Conflict-free timetable planner
             </h1>
-            <p className="mt-2 max-w-xl text-sm text-slate-500 dark:text-slate-400">
-              Build a clear weekly plan, keep attendance in check, and log classes in seconds.
+            <p className="mt-3 max-w-xl text-sm text-[#a4b5aa]">
+              Build your weekly schedule with teacher and room assignments, preventing double-bookings and clashes automatically.
             </p>
           </div>
           <div className="flex flex-col gap-4 sm:items-end">
-            <TargetMode />
             <AuthPanel />
           </div>
         </header>
@@ -55,23 +49,23 @@ function AppContent() {
         </section>
 
         <nav
-          className="relative z-10 mt-10 flex items-center gap-3 rounded-full border border-slate-200 bg-white/70 p-2 text-sm shadow-soft backdrop-blur dark:border-slate-800 dark:bg-slate-900/70"
+          className="relative z-10 mt-10 inline-flex items-center gap-2 rounded-full border border-[rgba(231,231,221,0.14)] bg-[#1b3f33]/90 p-1.5 text-sm shadow-soft backdrop-blur"
           aria-label="Primary"
         >
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative px-4 py-2 font-medium transition-colors ${
+              className={`relative rounded-full px-5 py-2 text-xs font-semibold transition-colors ${
                 activeTab === tab.id
-                  ? "text-slate-900 dark:text-white"
-                  : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+                  ? "text-[#16362b] font-bold"
+                  : "text-[#a4b5aa] hover:text-[#e7e7dd]"
               }`}
             >
               {activeTab === tab.id && (
                 <motion.span
                   layoutId="active-tab"
-                  className="absolute inset-0 rounded-full bg-slate-100 dark:bg-slate-800"
+                  className="absolute inset-0 rounded-full bg-[#f5f2df] shadow-sm"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
@@ -82,25 +76,6 @@ function AppContent() {
 
         <section className="mt-8" aria-live="polite">
           <AnimatePresence mode="wait">
-            {activeTab === "dashboard" && (
-              <motion.article
-                key="dashboard"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Dashboard
-                  summaries={summary.subjectSummaries}
-                  overall={summary.overall}
-                  scope={scope}
-                  monthKey={monthKey}
-                  onScopeChange={setScope}
-                  onMonthChange={setMonthKey}
-                  onSelectTab={setActiveTab}
-                />
-              </motion.article>
-            )}
             {activeTab === "timetable" && (
               <motion.article
                 key="timetable"

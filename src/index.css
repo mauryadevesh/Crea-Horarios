@@ -2,6 +2,18 @@
 @config "../tailwind.config.cjs";
 
 @font-face {
+  font-family: "Blood of Dawnwalker";
+  src: url("/fonts/PowerGrotesk-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rogenz";
+  src: url("/fonts/rogenzdemo.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Roboto Slab Local";
   src: url("/fonts/RobotoSlab.ttf") format("truetype");
   font-display: swap;
@@ -15,15 +27,15 @@
 
 :root {
   color-scheme: dark;
-  --background: #0b1020;
-  --surface: #131a2a;
-  --surface-raised: #1a2335;
-  --surface-muted: #202b40;
-  --text: #f1f5f9;
-  --muted: #94a3b8;
-  --accent: #7dd3fc;
-  --accent-strong: #38bdf8;
-  --border: rgba(148, 163, 184, 0.2);
+  --background: #16362b;
+  --surface: #1b3f33;
+  --surface-raised: #20493b;
+  --surface-muted: #275647;
+  --text: #e7e7dd;
+  --muted: #a4b5aa;
+  --accent: #f5f2df;
+  --accent-text: #16362b;
+  --border: rgba(231, 231, 221, 0.14);
 }
 
 * {
@@ -38,8 +50,16 @@ body {
 }
 
 body {
-  font-family: "Roboto Slab Local", Georgia, serif;
+  font-family: "Roboto Slab Local", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
+}
+
+.font-dawnwalker {
+  font-family: "Blood of Dawnwalker", sans-serif;
+}
+
+.font-rogenz {
+  font-family: "Rogenz", serif, sans-serif;
 }
 
 button,
@@ -47,6 +67,19 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+input,
+select,
+textarea {
+  background-color: #122c23;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #799083;
 }
 
 button:focus-visible,
@@ -57,16 +90,13 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
-.font-gals {
-  font-family: "GALS", "Roboto Slab Local", Georgia, serif;
-}
-
 .bg-surface-light,
 .bg-surface-dark,
 body.bg-surface-light {
+  background-color: #16362b;
   background:
-    radial-gradient(circle at 85% 0%, rgba(56, 189, 248, 0.08), transparent 26rem),
-    linear-gradient(145deg, #0b1020 0%, #0d1425 55%, #101a2d 100%);
+    radial-gradient(circle at 85% 0%, rgba(245, 242, 223, 0.05), transparent 36rem),
+    linear-gradient(160deg, #16362b 0%, #132e25 55%, #10261f 100%);
 }
 
 .text-slate-900,
@@ -79,18 +109,6 @@ body.bg-surface-light {
 .text-slate-500,
 .text-slate-400 {
   color: var(--muted);
-}
-
-h1,
-h2,
-h3,
-.font-gals {
-  text-shadow: 0 1px 20px rgba(56, 189, 248, 0.12);
-}
-
-.glow-text {
-  color: var(--accent);
-  text-shadow: 0 0 16px rgba(56, 189, 248, 0.28);
 }
 
 .bg-white,
@@ -119,29 +137,16 @@ h3,
   color: var(--text);
 }
 
-.text-emerald-500,
-.text-emerald-600,
-.text-emerald-700,
-.dark .text-emerald-300 {
-  color: var(--accent);
-}
-
-.bg-emerald-500,
-.bg-emerald-400 {
-  background-color: var(--accent-strong);
-}
-
 .shadow-soft {
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
 }
 
 button {
   transition:
-    transform 180ms ease,
-    box-shadow 180ms ease,
-    background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease;
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
 }
 
 button:hover {
@@ -149,21 +154,19 @@ button:hover {
 }
 
 .glass {
-  background: rgba(19, 26, 42, 0.86);
-  backdrop-filter: blur(12px);
+  background: rgba(22, 54, 43, 0.92);
+  backdrop-filter: blur(14px);
+  border-color: var(--border);
 }
 
 .dark .glass {
-  background: rgba(26, 35, 53, 0.72);
+  background: rgba(22, 54, 43, 0.92);
 }
 
 .module-outline {
-  border-color: rgba(125, 211, 252, 0.28);
-  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.05), 0 12px 28px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
 }
 
-.module-outline:focus-within,
 .module-outline:hover {
-  border-color: rgba(125, 211, 252, 0.68);
-  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.14), 0 0 22px rgba(56, 189, 248, 0.12);
+  border-color: rgba(245, 242, 223, 0.35);
 }

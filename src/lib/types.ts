@@ -6,6 +6,16 @@ export type Subject = {
   id: string;
   name: string;
   color: string;
+  teacher?: string;
+};
+
+export type TimetableSlot = {
+  id: string;
+  day: DayKey;
+  subjectId: string;
+  room: string;
+  startTime: string;
+  endTime: string;
 };
 
 export type Timetable = Record<DayKey, string[]>;
@@ -16,6 +26,7 @@ export type NotesLog = Record<string, Record<string, string>>; // date -> subjec
 export type AttendanceState = {
   subjects: Subject[];
   timetable: Timetable;
+  slots?: TimetableSlot[];
   logs: DailyLog;
   overrides: Record<string, string[]>; // date -> subjectIds
   notes: NotesLog;
