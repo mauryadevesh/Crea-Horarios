@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import type { AttendanceState } from "./types";
+import type { TimetableState } from "./types";
 import { seedState } from "../data/seed";
 import {
   loadJsonDatabase,
@@ -20,8 +20,8 @@ import {
 type DbStatus = "ready" | "saved" | "error";
 
 export type PersistentDatabaseState = {
-  state: AttendanceState;
-  setState: Dispatch<SetStateAction<AttendanceState>>;
+  state: TimetableState;
+  setState: Dispatch<SetStateAction<TimetableState>>;
   user: UserAccount | null;
   status: DbStatus;
   signIn: (email: string, password: string) => Promise<string | null>;
@@ -34,7 +34,7 @@ export type PersistentDatabaseState = {
 
 export const usePersistentState = (): PersistentDatabaseState => {
   const [user, setUser] = useState<UserAccount | null>(() => getActiveUser());
-  const [state, setState] = useState<AttendanceState>(() => {
+  const [state, setState] = useState<TimetableState>(() => {
     const active = getActiveUser();
     if (active && active.data) {
       return active.data;

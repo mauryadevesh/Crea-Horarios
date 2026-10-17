@@ -3,7 +3,6 @@
   "databaseName": "WeeklyTimetableDatabase",
   "lastModified": "2026-10-17T12:00:00.000Z",
   "data": {
-    "target": 75,
     "subjects": [
       {
         "id": "mathematics",
@@ -137,8 +136,6 @@
         "endTime": "11:00"
       }
     ],
-    "logs": {},
-    "notes": {},
-    "overrides": {}
+    "notes": {}
   }
 }

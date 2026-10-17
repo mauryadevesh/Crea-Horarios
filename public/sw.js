@@ -1,4 +1,4 @@
-const CACHE_NAME = "attendance-cache-v1";
+const CACHE_NAME = "timetable-cache-v1";
 const CORE_ASSETS = ["/", "/index.html", "/manifest.webmanifest", "/icon.svg"];
 
 self.addEventListener("install", (event) => {

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAttendance } from "../context/AttendanceContext";
+import { useTimetable } from "../context/TimetableContext";
 
 export default function AccountAuth() {
-  const { user, signIn, signUp, signOut, status } = useAttendance();
+  const { user, signIn, signUp, signOut, status } = useTimetable();
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");

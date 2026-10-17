@@ -1,4 +1,4 @@
-import type { AttendanceState } from "./types";
+import type { TimetableState } from "./types";
 import { seedState } from "../data/seed";
 import { deriveDefaultSlots } from "./conflicts";
 
@@ -8,7 +8,7 @@ export interface UserAccount {
   passwordHash: string;
   createdAt: string;
   lastLogin: string;
-  data: AttendanceState;
+  data: TimetableState;
 }
 
 export interface JsonAuthDatabase {
@@ -17,7 +17,7 @@ export interface JsonAuthDatabase {
   users: Record<string, UserAccount>;
 }
 
-const AUTH_DB_KEY = "timetable_json_auth_db_v1";
+const AUTH_DB_KEY = "weekly_timetable_auth_db_v1";
 
 function simpleHash(str: string): string {
   let hash = 0;
@@ -65,7 +65,7 @@ export function saveAuthDatabase(db: JsonAuthDatabase): void {
 export function registerUser(
   email: string,
   password: string,
-  initialState?: AttendanceState
+  initialState?: TimetableState
 ): { success: boolean; error?: string; user?: UserAccount } {
   const normalizedEmail = email.trim().toLowerCase();
   if (!normalizedEmail || !normalizedEmail.includes("@")) {
@@ -142,7 +142,7 @@ export function getActiveUser(): UserAccount | null {
   return db.users[db.activeUserId] ?? null;
 }
 
-export function saveActiveUserData(state: AttendanceState): void {
+export function saveActiveUserData(state: TimetableState): void {
   const db = loadAuthDatabase();
   if (!db.activeUserId || !db.users[db.activeUserId]) return;
 

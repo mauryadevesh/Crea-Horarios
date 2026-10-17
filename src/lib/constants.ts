@@ -1,4 +1,4 @@
-export const STORAGE_KEY = "attendance-calculator-state";
+export const STORAGE_KEY = "weekly-timetable-maker-state";
 
 export const SUBJECT_COLOR_PALETTE = [
   "#A8C5B2", // Sage

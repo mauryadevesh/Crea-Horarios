@@ -1,29 +1,9 @@
-import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { computeSubjectSummary } from "./lib/attendance";
-import { AttendanceProvider, useAttendance } from "./context/AttendanceContext";
-import Alerts from "./components/Alerts";
+import { TimetableProvider } from "./context/TimetableContext";
 import TimetableSetup from "./components/TimetableSetup";
-import DailyLogging from "./components/DailyLogging";
 import FeedbackForm from "./components/FeedbackForm";
 import AccountAuth from "./components/AccountAuth";
 
-const tabs = [
-  { id: "timetable", label: "Timetable" },
-  { id: "daily", label: "Log" },
-] as const;
-
-type TabId = (typeof tabs)[number]["id"];
-
 function AppContent() {
-  const { state } = useAttendance();
-  const [activeTab, setActiveTab] = useState<TabId>("timetable");
-
-  const summary = useMemo(
-    () => computeSubjectSummary(state),
-    [state]
-  );
-
   return (
     <main className="min-h-screen bg-surface-light text-slate-900 dark:bg-surface-dark dark:text-slate-100">
       <section className="mx-auto max-w-6xl px-3.5 sm:px-6 lg:px-8 pb-16 pt-6 sm:pt-10">
@@ -44,66 +24,12 @@ function AppContent() {
           </div>
         </header>
 
-        <section className="mt-6 sm:mt-8" aria-label="Alerts">
-          <Alerts summaries={summary.subjectSummaries} subjects={state.subjects} target={state.target} />
+        <section className="mt-8">
+          <TimetableSetup />
         </section>
 
-        <div className="mt-8 flex justify-start">
-          <nav
-            className="relative z-10 flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[rgba(231,231,221,0.14)] bg-[#1b3f33]/90 p-1.5 text-sm shadow-soft backdrop-blur"
-            aria-label="Primary"
-          >
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`relative flex-1 sm:flex-initial rounded-full px-6 py-2.5 text-xs font-semibold transition-colors ${
-                  activeTab === tab.id
-                    ? "text-[#16362b] font-bold"
-                    : "text-[#a4b5aa] hover:text-[#e7e7dd]"
-                }`}
-              >
-                {activeTab === tab.id && (
-                  <motion.span
-                    layoutId="active-tab"
-                    className="absolute inset-0 rounded-full bg-[#f5f2df] shadow-sm"
-                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                  />
-                )}
-                <span className="relative z-10">{tab.label}</span>
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        <section className="mt-8" aria-live="polite">
-          <AnimatePresence mode="wait">
-            {activeTab === "timetable" && (
-              <motion.article
-                key="timetable"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3 }}
-              >
-                <TimetableSetup />
-              </motion.article>
-            )}
-            {activeTab === "daily" && (
-              <motion.article
-                key="daily"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3 }}
-              >
-                <DailyLogging />
-                <div className="mt-8">
-                  <FeedbackForm />
-                </div>
-              </motion.article>
-            )}
-          </AnimatePresence>
+        <section className="mt-12">
+          <FeedbackForm />
         </section>
       </section>
     </main>
@@ -112,8 +38,8 @@ function AppContent() {
 
 export default function App() {
   return (
-    <AttendanceProvider>
+    <TimetableProvider>
       <AppContent />
-    </AttendanceProvider>
+    </TimetableProvider>
   );
 }

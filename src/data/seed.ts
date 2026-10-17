@@ -1,4 +1,4 @@
-import type { AttendanceState, Timetable } from "../lib/types";
+import type { Timetable, TimetableState } from "../lib/types";
 import { DEFAULT_SUBJECTS } from "../lib/constants";
 import { deriveDefaultSlots } from "../lib/conflicts";
 
@@ -14,12 +14,9 @@ const timetable: Timetable = {
 
 const slots = deriveDefaultSlots(timetable, DEFAULT_SUBJECTS);
 
-export const seedState: AttendanceState = {
-  target: 75,
+export const seedState: TimetableState = {
   subjects: DEFAULT_SUBJECTS,
   timetable,
   slots,
-  logs: {},
-  overrides: {},
   notes: {},
 };

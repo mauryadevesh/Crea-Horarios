@@ -11,7 +11,7 @@ export default defineConfig({
       manifest: {
         name: "Weekly Timetable Maker",
         short_name: "Timetable Maker",
-        description: "Create weekly timetables, manage schedules, and log attendance.",
+        description: "Create weekly timetables and manage conflict-free schedules.",
         start_url: "/",
         display: "standalone",
         background_color: "#16362B",

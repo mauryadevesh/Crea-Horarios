@@ -4,19 +4,19 @@ WEEKLY TIMETABLE MAKER - OFFICIAL DOCUMENTATION & FAQs
 1. CURRENT WEBSITE OVERVIEW & FEATURES
 ================================================================================
 Application: Weekly Timetable Maker (Conflict-Free Timetable Planner)
-Purpose: Academic timetable creation and daily lecture logging without scheduling conflicts.
+Purpose: Academic timetable creation with real-time clash prevention.
 Theme: Minimalist Dark Forest Green (#16362B, #1B3F33, #20493B, #F5F2DF, #E7E7DD, #A4B5AA)
 Design: Clean, typography-focused, responsive, zero emojis.
 Header Fonts: 'The Blood of Dawnwalker' (Power Grotesk) and 'Rogenz'.
 
 Active Sections & Features on the Website:
-1. TIMETABLE TAB:
+1. TIMETABLE PLANNER:
    - Subjects & Faculty Management:
      * Add subjects with optional teacher/faculty name.
      * Automatic distinct color badge assignment per subject.
      * Subject tags displaying assigned teacher.
      * Remove subject action with automatic cleanup of associated slots.
-     * Quick actions: 'Clear logs' and 'Reset to defaults'.
+     * Quick actions: 'Clear schedule' and 'Reset to defaults'.
    - Clash Prevention Engine:
      * Real-time automated conflict detection across all days.
      * Prevents Teacher Clashes (same teacher scheduled in two places at once).
@@ -36,21 +36,12 @@ Active Sections & Features on the Website:
      * Schedule Master Matrix with horizontal Day Filter toolbar ('All Week' or individual days).
      * Dual-Mode Responsive Layout: compact mobile cards (<768px) and desktop data matrix table (>=768px).
 
-2. LOG TAB (DAILY CLASS LOG):
-   - Date picker to view and record attendance for any calendar date.
-   - Per-lecture attendance status buttons: 'Attended', 'Missed', 'Cancelled'.
-   - Today's Schedule Overrides: toggle subjects on/off for one-day swaps or cancellations without altering the master weekly timetable.
-   - 'Reset to default schedule' button to restore original day lineup.
-   - Custom note input per lecture for assignments, proxies, or room changes.
-   - Feedback & Suggestions form (rating, category, message, email).
-
-3. LOCAL JSON ACCOUNT & PERSISTENCE:
+2. LOCAL JSON ACCOUNT & PERSISTENCE:
    - Sign in and Register options located in the top-right corner.
-   - Saves personalized timetable and log data into an offline-first local JSON database.
+   - Saves personalized timetable data into an offline-first local JSON database.
    - Supports multiple user accounts without third-party cloud services or Supabase.
 
-
-4. EMBEDDED AI ASSISTANT:
+3. EMBEDDED AI ASSISTANT:
    - Floating Noupe AI chatbot widget ready to help users navigate and manage their schedules.
 
 
@@ -59,7 +50,7 @@ Active Sections & Features on the Website:
 ================================================================================
 
 Q1: What does the Weekly Timetable Maker do?
-A1: Weekly Timetable Maker is a web application designed to plan weekly academic schedules and log daily attendance. It automatically detects and prevents timetable clashes so instructors are never double-booked, rooms are never reserved twice at the same time, and lectures never overlap.
+A1: Weekly Timetable Maker is a web application designed to plan weekly academic schedules. It automatically detects and prevents timetable clashes so instructors are never double-booked, rooms are never reserved twice at the same time, and lectures never overlap.
 
 Q2: What kinds of clashes does the conflict engine prevent?
 A2: The scheduling engine checks three types of conflicts:
@@ -69,7 +60,7 @@ A2: The scheduling engine checks three types of conflicts:
 If a clash is found, a warning banner explains the exact conflict and prevents saving until resolved.
 
 Q3: How do I add a subject and assign a teacher?
-A3: Go to the 'Timetable' tab, find the 'Subjects & Faculty' section, enter the subject name and the teacher's name (e.g. Dr. Alan Turing), and click 'Add Subject'. The teacher is automatically assigned to every class session scheduled for that subject.
+A3: Under 'Subjects & Faculty', enter the subject name and the teacher's name (e.g. Dr. Alan Turing), and click 'Add Subject'. The teacher is automatically assigned to every class session scheduled for that subject.
 
 Q4: How do I schedule a class session?
 A4: Click '+ Schedule New Class' (or '+ Add Class' on a specific day). Choose the day, select the subject, enter or pick a room (e.g. Room 101, Lab A), and choose a period preset or custom start and end times. The system validates the slot in real time; once conflict-free, click 'Schedule Class'.
@@ -78,22 +69,16 @@ Q5: Can I use custom class hours instead of standard 1-hour periods?
 A5: Yes. In addition to 1-hour period presets, you can enter custom start and end times down to the minute using the time pickers.
 
 Q6: How do I view my schedule by specific days?
-A6: In the 'Schedule Master Matrix' section at the bottom of the Timetable tab, use the 'Filter Day' toolbar to toggle between 'All Week' or any individual day (Mon through Sun).
+A6: In the 'Schedule Master Matrix' section at the bottom, use the 'Filter Day' toolbar to toggle between 'All Week' or any individual day (Mon through Sun).
 
-Q7: How does the Daily Log work?
-A7: Switch to the 'Log' tab to record daily lecture attendance. For each class scheduled on the selected date, tap 'Attended', 'Missed', or 'Cancelled'. You can also add notes for assignments, proxy teachers, or announcements.
+Q7: Is my timetable data saved automatically?
+A7: Yes. Everything is saved automatically and persistently in your browser's local JSON database, ensuring your timetable is always ready offline.
 
-Q8: What if a class is swapped or cancelled for just one day?
-A8: Under 'Today’s Schedule' in the Log tab, simply click any subject pill to toggle it on or off for that date. This modifies only the selected day's log without changing your recurring weekly timetable. Click 'Reset to default schedule' anytime to revert back.
+Q8: Does the website work on mobile phones and tablets?
+A8: Yes. On mobile phones, the schedule renders as touch-friendly cards and bottom-sheet dialogs. On tablets and laptops, it displays an expanded matrix table.
 
-Q9: Is my timetable data saved automatically?
-A9: Yes. Everything is saved automatically and persistently in your browser's local storage, ensuring your timetable is always ready offline.
+Q9: How do I edit or delete a scheduled class?
+A9: Every class card and table row has dedicated 'Edit' and 'Delete' buttons. Clicking 'Edit' opens the scheduling modal with pre-filled details, while 'Delete' removes the slot immediately.
 
-Q10: Does the website work on mobile phones and tablets?
-A10: Yes. On mobile phones, the schedule renders as touch-friendly cards and bottom-sheet dialogs. On tablets and laptops, it displays an expanded matrix table.
-
-Q11: How do I edit or delete a scheduled class?
-A11: Every class card and table row has dedicated 'Edit' and 'Delete' buttons. Clicking 'Edit' opens the scheduling modal with pre-filled details, while 'Delete' removes the slot immediately.
-
-Q12: How do I reset my schedule if I want to start over?
-A12: In the 'Subjects & Faculty' header, click 'Reset to defaults' to restore sample subjects and slots, or click 'Clear logs' to wipe logged attendance and daily notes while keeping your timetable structure.
+Q10: How do I reset my schedule if I want to start over?
+A10: In the 'Subjects & Faculty' header, click 'Reset to defaults' to restore sample subjects and slots, or click 'Clear schedule' to wipe all scheduled sessions while keeping your subject list.

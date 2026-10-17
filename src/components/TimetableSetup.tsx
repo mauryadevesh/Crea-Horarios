@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import type { AttendanceState, DayKey, Subject, TimetableSlot } from "../lib/types";
+import type { DayKey, Subject, TimetableSlot, TimetableState } from "../lib/types";
 import { SUBJECT_COLOR_PALETTE } from "../lib/constants";
 import { seedState } from "../data/seed";
-import { useAttendance } from "../context/AttendanceContext";
+import { useTimetable } from "../context/TimetableContext";
 import {
   findTimetableConflicts,
   deriveDefaultSlots,
@@ -31,7 +31,7 @@ const pickColor = (subjects: Subject[]) =>
   SUBJECT_COLOR_PALETTE[subjects.length % SUBJECT_COLOR_PALETTE.length];
 
 export default function TimetableSetup() {
-  const { state, setState } = useAttendance();
+  const { state, setState } = useTimetable();
   const [subjectName, setSubjectName] = useState("");
   const [teacherName, setTeacherName] = useState("");
 
@@ -88,19 +88,11 @@ export default function TimetableSetup() {
     const nextSlots = slots.filter((slot) => slot.subjectId !== subjectId);
     const nextTimetable = syncTimetableFromSlots(nextSlots);
 
-    const nextLogs = Object.fromEntries(
-      Object.entries(state.logs).map(([date, daily]) => {
-        const { [subjectId]: _, ...rest } = daily;
-        return [date, rest];
-      })
-    ) as AttendanceState["logs"];
-
     setState({
       ...state,
       subjects: nextSubjects,
       slots: nextSlots,
       timetable: nextTimetable,
-      logs: nextLogs,
     });
   };
 
@@ -150,22 +142,29 @@ export default function TimetableSetup() {
   };
 
   const resetToDefaults = () => {
-    if (!window.confirm("Reset all subjects, timetable, and logs to defaults?")) {
+    if (!window.confirm("Reset all subjects and timetable to defaults?")) {
       return;
     }
-    const nextState = JSON.parse(JSON.stringify(seedState)) as AttendanceState;
+    const nextState = JSON.parse(JSON.stringify(seedState)) as TimetableState;
     setState(nextState);
   };
 
-  const clearLogs = () => {
-    if (!window.confirm("Clear all logs and notes?")) {
+  const clearSchedule = () => {
+    if (!window.confirm("Clear all scheduled class sessions?")) {
       return;
     }
     setState({
       ...state,
-      logs: {},
-      notes: {},
-      overrides: {},
+      slots: [],
+      timetable: {
+        Mon: [],
+        Tue: [],
+        Wed: [],
+        Thu: [],
+        Fri: [],
+        Sat: [],
+        Sun: [],
+      },
     });
   };
 
@@ -182,10 +181,10 @@ export default function TimetableSetup() {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button
-              onClick={clearLogs}
+              onClick={clearSchedule}
               className="rounded-full border border-[rgba(231,231,221,0.14)] px-3.5 py-1 text-xs font-semibold text-[#a4b5aa] transition hover:border-[rgba(231,231,221,0.3)] hover:text-[#e7e7dd]"
             >
-              Clear logs
+              Clear schedule
             </button>
             <button
               onClick={resetToDefaults}
